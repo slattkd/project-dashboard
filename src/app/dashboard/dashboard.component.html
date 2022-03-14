@@ -1,0 +1,43 @@
+<div class="container-md my-3 p-3 wrap-1">
+	<div class="d-flex justify-content-between mb-4">
+		<div class="d-flex align-items-end flex-wrap">
+			<h3 class="title mb-0 me-3">Project Dashboard</h3>
+		</div>
+		<div class="d-flex">
+			<button type="" (click)="openCreate()" class="btn btn-outline-primary d-flex align-items-center" title="Create Project">
+				<svg viewBox="0 0 448 512" width="70" title="plus" style="fill: blue; margin-right: 0.5rem">
+					<path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+				</svg>
+				Create New
+			</button>
+			<button type="" (click)="downloadCSV()" class="btn btn-outline-primary d-flex align-items-center ms-3" title="Download CSV">
+				<svg viewBox="0 0 384 512" width="80" title="file-download" style="fill: blue; margin-right: 0.5rem">
+					<path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm76.45 211.36l-96.42 95.7c-6.65 6.61-17.39 6.61-24.04 0l-96.42-95.7C73.42 337.29 80.54 320 94.82 320H160v-80c0-8.84 7.16-16 16-16h32c8.84 0 16 7.16 16 16v80h65.18c14.28 0 21.4 17.29 11.27 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z" />
+				</svg>
+				Download CSV
+			</button>
+		</div>
+	</div>
+	<!-- 	individual card to iterate over -->
+	<!-- TODO:	add pipe | term: filter.value | data: date.value -->
+	<div class="d-flex justify-content-end mb-4 gap-3">
+		<app-date-picker (onDateUpdate)="updateStartDate($event)" [clear]="onClear" class="" style="min-width: 155px;"></app-date-picker>
+		<app-date-picker (onDateUpdate)="updateEndDate($event)" [clear]="onClear" class="" style="min-width: 155px;"></app-date-picker>
+		<input [(ngModel)]="searchTerm" type="text" class="form-control" placeholder="search" id="Search" aria-describedby="search" style="min-width: 300px;">
+		<button type="" (click)="clearSearch()" class="btn btn-outline-secondary d-flex align-items-center" title="Download CSV">
+			Clear
+		</button>
+	</div>
+	<div class="d-flex flex-wrap row">
+		<div *ngFor="let project of data | filterPipe : searchTerm | dateRange : startDate : endDate; let i = index;" 
+			(click)="open(project)"
+			class="clickable col-sm-6 col-md-4 mb-4"
+			id="project-{{i}}"
+			style="z-index: 1">
+			<app-project-card [projectData]="project" ></app-project-card>
+		</div>
+		<div class="ms-1 mt-1 text-muted" style="z-index: 0">no data available</div>
+	</div>
+	
+
+</div>

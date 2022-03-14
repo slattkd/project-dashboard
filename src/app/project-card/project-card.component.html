@@ -1,0 +1,26 @@
+<div class="card project-card" [class.archived]="projectData.status === 'archived'">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex flex-column">
+        <h5 class="card-title">{{projectData.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted" title="project owner">{{projectData.project_owner}}</h6>
+      </div>
+      <div class="d-flex flex-column small">
+        <div title="start date" class="text-end">{{projectData.created | date: 'mediumDate'}}</div>
+      </div>
+    </div>
+    <p class="d-flex text-muted mt-4 mb-0 justify-content-center">{{projectData.division}}</p>
+    <h2 class="d-flex justify-content-center mb-4 fw-bolder"
+    [class.text-muted]="projectData.status === 'archived'">
+      <span class="small align-self-start">$</span> {{projectData.budget}}
+    </h2>
+    <div class="d-flex justify-content-between">
+      <div class="small text-capitalize">
+        <span title="status">{{projectData.status}}</span> {{projectData.modified ? '|' : ''}} 
+        <span title="modified date">{{projectData.modified | date: 'mediumDate' || ''}}</span>
+      </div>
+      <a href="/project" class="card-link text-end" (click)="$event.stopPropagation()">View more</a>
+    </div>
+
+  </div>
+</div>
