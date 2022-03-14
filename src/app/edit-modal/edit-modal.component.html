@@ -1,0 +1,26 @@
+
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Manage Project</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalService.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body row">
+  <app-search class="col-6" [projectData]="dataCopy" (onProjectUpdate)="newProjectData($event)"></app-search>
+    <div class="col d-flex flex-column justify-content-center">
+      <div class="d-flex justify-content-center mb-4">Budget Summary</div>
+      <div class="row d-flex justify-content-center align-items-center">
+        <p class="mb-0 d-flex justify-content-center">Average:</p>
+        <h2 class="mt-0 d-flex justify-content-center">{{averageBudget.toFixed(2)}}</h2>
+      </div>
+      <div class="row d-flex  mt-4 justify-content-center align-items-center">
+        <p class="mb-0 d-flex justify-content-center">Difference:</p>
+        <h2 class="mt-0 d-flex justify-content-center">{{difference.toFixed(2)}}</h2>
+      </div>
+      
+    </div>
+  
+</div>
+<div class="modal-footer d-flex justify-content-between">
+  <button type="submit" class="btn btn-danger me-auto" (click)="modalService.dismiss('Delete')">Delete</button>
+  <button type="submit" class="btn btn-outline-primary mx-3" (click)="modalService.dismiss('Cancel')">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="modalService.dismiss(newProject)" [disabled]="dataCopy.status === 'archived'">Save</button>
+</div>
