@@ -34,12 +34,10 @@ export class DashboardComponent implements OnInit {
 
   updateStartDate(e: any) {
     this.startDate = e;
-    console.log('start date', e);
   }
 
   updateEndDate(e: any) {
     this.endDate = e;
-    console.log('end date', e);
   }
 
   editProject(proj: PROJECT) {
@@ -58,13 +56,13 @@ export class DashboardComponent implements OnInit {
     const modal = this.modalService.open(EditModalComponent, {size: 'lg'});
     modal.componentInstance.projectData = content;
     modal.result.then((result) => {
-      console.log(result);
     }, (reason) => {
       this.getDismissReason(reason)
     });
   }
 
-  openCreate() {
+  // set default values for new project
+  openCreate(): void {
     let newProject = {
       title: 'New Project',
       division: '',
@@ -78,14 +76,13 @@ export class DashboardComponent implements OnInit {
     const modal = this.modalService.open(EditModalComponent, {size: 'lg'});
     modal.componentInstance.projectData = newProject;
     modal.result.then((result) => {
-      console.log(result);
     }, (reason) => {
       this.getDismissReason(reason)
     });
   }
 
+  // call CRUD service based on response edit logic
   private getDismissReason(reason: any): void {
-    console.log('close modal', reason);
     if (reason == 'Delete') {
       if (this.selectedProject !== null) {
         this.data = this.dataService.deleteProject(this.selectedProject);
@@ -93,18 +90,17 @@ export class DashboardComponent implements OnInit {
     } else if (reason == 'Cancel' || reason == 'Cross click' || reason == 0) {
       this.selectedProject = null;
     } else if (reason && reason.created) {
-      console.log('update');
       if (this.selectedProject !== null) {
         this.data = this.dataService.updateProject(this.selectedProject, reason);
       }
     }
     else if (!reason.created || (reason.created && !reason.created.length)) {
-      console.log('create');
       this.data = this.dataService.createProject(reason);
     }
     this.selectedProject = null;
   }
 
+  // format and download comma delimited project data
   public downloadCSV() {
       let array = typeof this.data != 'object' ? JSON.parse(this.data) : this.data;
       let str = '';

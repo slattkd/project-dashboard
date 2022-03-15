@@ -14,7 +14,6 @@ export class DatePickerComponent implements OnInit {
 
   ngOnInit() {
     this.clear.subscribe((event: any) => {
-      console.log(event);
       if (event === true) {
         this.model = undefined;
       }

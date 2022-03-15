@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit {
   @Output() onValidUpdate = new EventEmitter<boolean>();
 
   projectForm = new FormGroup({
+    // could use custom validator for duplicate titles
     title: new FormControl(''),
     project_owner: new FormControl('', Validators.required),
     division: new FormControl('', Validators.required),
@@ -23,12 +24,6 @@ export class SearchComponent implements OnInit {
     created: new FormControl('', Validators.required),
     modified: new FormControl('', Validators.required),
   });
-
-  formMessages = {
-    title: 'That title is already taken.',
-    required: 'This field is required.',
-    number: 'Must be a number with two decimals. (15000.00)'
-  }
 
   constructor() { }
 
@@ -63,12 +58,13 @@ export class SearchComponent implements OnInit {
     this.onValidUpdate.emit(this.projectForm.valid);
   }
 
-  public duplicateValidator(): boolean {
-    if (this.allProjectData) {
-      return !this.allProjectData.some(proj => proj.title === this.projectForm.value?.title);
-    } else {
-      return false;
-    }
-  }
+  // testing duplicate title validator function
+  // public duplicateValidator(): boolean {
+  //   if (this.allProjectData) {
+  //     return !this.allProjectData.some(proj => proj.title === this.projectForm.value?.title);
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
 } 

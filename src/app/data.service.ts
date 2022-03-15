@@ -15,7 +15,6 @@ export class DataService {
   }
 
   createProject(proj: PROJECT): PROJECT[] {
-    console.log('create', proj);
     proj.created = new Date().toLocaleDateString();
     this.data.unshift(proj);
     window.alert('project created');
@@ -23,7 +22,6 @@ export class DataService {
   }
 
   updateProject(oldProj: PROJECT, newProj: PROJECT): PROJECT[] {
-    console.log('update', newProj);
     let index = this.data.findIndex((each: any) => each == oldProj);
     this.data.splice(index, 1);
     newProj.modified = new Date().toLocaleDateString();
@@ -33,7 +31,6 @@ export class DataService {
   }
 
   deleteProject(deleteProj: PROJECT): PROJECT[] {
-    console.log('delete', deleteProj);
     let index = this.data.findIndex((each: any) => each.title == deleteProj.title && each.created == deleteProj.created);
     this.data.splice(index, 1);
     window.alert('project deleted');

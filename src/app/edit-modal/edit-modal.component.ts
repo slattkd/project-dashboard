@@ -40,11 +40,12 @@ export class EditModalComponent implements OnInit {
   }
   
   updateValidity(val: boolean) {
+    // dont allow archive edits
     let archived = this.dataCopy.status === 'archived'
-    console.log('validity', val);
     this.validity = val && !archived;
   }
 
+  // verify delete
   deleteStep(): void {
     if (this.deleteMessage === 'Delete') {
       this.deleteMessage = 'Are you sure?';
