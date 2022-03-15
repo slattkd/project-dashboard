@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
   data: PROJECT[] | [];
   loading: boolean = false;
   searchTerm: string = '';
-  closeResult = '';
   selectedProject: PROJECT | null;
   endDate: any;
   startDate: any;
@@ -59,9 +58,9 @@ export class DashboardComponent implements OnInit {
     const modal = this.modalService.open(EditModalComponent, {size: 'lg'});
     modal.componentInstance.projectData = content;
     modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+      console.log(result);
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.getDismissReason(reason)
     });
   }
 
@@ -73,41 +72,37 @@ export class DashboardComponent implements OnInit {
       budget: 0,
       status: 'Pending',
       created: '',
-      modified: new Date().toLocaleDateString()
+      modified: ''
     };
     this.selectedProject = newProject;
     const modal = this.modalService.open(EditModalComponent, {size: 'lg'});
     modal.componentInstance.projectData = newProject;
     modal.result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
+      console.log(result);
     }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      this.getDismissReason(reason)
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason && reason.created) {
-      console.log('update');
-      if (this.selectedProject !== null) {
-        this.data = this.dataService.updateProject(reason, this.selectedProject);
-      }
-    }
-    if (reason && !reason.created) {
-      this.data = this.dataService.createProject(reason);
-    }
+  private getDismissReason(reason: any): void {
+    console.log('close modal', reason);
     if (reason == 'Delete') {
       if (this.selectedProject !== null) {
         this.data = this.dataService.deleteProject(this.selectedProject);
       }
+    } else if (reason == 'Cancel' || reason == 'Cross click' || reason == 0) {
+      this.selectedProject = null;
+    } else if (reason && reason.created) {
+      console.log('update');
+      if (this.selectedProject !== null) {
+        this.data = this.dataService.updateProject(this.selectedProject, reason);
+      }
+    }
+    else if (!reason.created || (reason.created && !reason.created.length)) {
+      console.log('create');
+      this.data = this.dataService.createProject(reason);
     }
     this.selectedProject = null;
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 
   public downloadCSV() {

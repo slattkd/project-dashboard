@@ -21,10 +21,10 @@
 	<!-- 	individual card to iterate over -->
 	<!-- TODO:	add pipe | term: filter.value | data: date.value -->
 	<div class="d-flex justify-content-end mb-4 gap-3">
-		<app-date-picker (onDateUpdate)="updateStartDate($event)" [clear]="onClear" class="" style="min-width: 155px;"></app-date-picker>
-		<app-date-picker (onDateUpdate)="updateEndDate($event)" [clear]="onClear" class="" style="min-width: 155px;"></app-date-picker>
-		<input [(ngModel)]="searchTerm" type="text" class="form-control" placeholder="search" id="Search" aria-describedby="search" style="min-width: 300px;">
-		<button type="" (click)="clearSearch()" class="btn btn-outline-secondary d-flex align-items-center" title="Download CSV">
+		<app-date-picker (onDateUpdate)="updateStartDate($event)" [clear]="onClear" class="" style="min-width: 175px;"></app-date-picker>
+		<app-date-picker (onDateUpdate)="updateEndDate($event)" [clear]="onClear" class="" style="min-width: 175px;"></app-date-picker>
+		<input [(ngModel)]="searchTerm" type="text" class="form-control" placeholder="search" id="Search" aria-describedby="search" style="min-width: 200px;">
+		<button type="" (click)="clearSearch()" class="btn btn-outline-secondary d-flex align-items-center" title="Clear filters">
 			Clear
 		</button>
 	</div>
@@ -36,7 +36,7 @@
 			style="z-index: 1">
 			<app-project-card [projectData]="project" ></app-project-card>
 		</div>
-		<div class="ms-1 mt-1 text-muted" style="z-index: 0">no data available</div>
+		<div class="ms-1 mt-1 text-muted" style="z-index: 0; position: absolute">no data available</div>
 	</div>
 	
 

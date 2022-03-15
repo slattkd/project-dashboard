@@ -2,35 +2,48 @@
 	<div class="mb-3">
 		<label for="title" class="form-label">Title*</label>
 		<input type="text" class="form-control" id="title" aria-describedby="title" formControlName="title" required>
-		<div id="title-msg" class="form-text">We'll never share your email with anyone else.</div>
+		<small class="text-danger" *ngIf="projectForm.get('title')?.hasError('required')">
+        This field is required.
+    </small>
 	</div>
 	<div class="mb-3">
 		<label for="division" class="form-label">Division*</label>
 		<input type="text" class="form-control" id="division" aria-describedby="division" formControlName="division" required>
-		<div id="division-msg" class="form-text">We'll never share your email with anyone else.</div>
+		<small class="text-danger" *ngIf="projectForm.get('division')?.hasError('required')">
+			This field is required.
+		</small>
 	</div>
 	<div class="mb-3">
 		<label for="owner" class="form-label">Project Owner*</label>
 		<input type="text" class="form-control" id="owner" aria-describedby="owner" formControlName="project_owner" required>
-		<div id="owner-msg" class="form-text">We'll never share your email with anyone else.</div>
+		<small class="text-danger" *ngIf="projectForm.get('project_owner')?.hasError('required')">
+			This field is required.
+		</small>
 	</div>
 	<div class="mb-3">
 		<label for="budget" class="form-label">Budget*</label>
-		<input type="number" class="form-control" id="budget" aria-describedby="budget" formControlName="budget" required>
-		<div id="budget-msg" class="form-text">We'll never share your email with anyone else.</div>
+		<input type="number" class="form-control" id="budget" aria-describedby="budget" formControlName="budget" placeholder="15000.00" required>
+		<small class="text-danger" *ngIf="projectForm.get('budget')?.hasError('required')">
+			This field is required.
+		</small>
+		<small class="text-danger" *ngIf="projectForm.get('budget')?.hasError('pattern')">
+			Must be number with two decimals.
+		</small>
 	</div>
 	<div class="mb-3">
 		<label for="Status" class="form-label">Status*</label>
 		<input type="text" class="form-control" id="status" aria-describedby="status" formControlName="status" required>
-		<div id="status-msg" class="form-text">We'll never share your email with anyone else.</div>
+		<small class="text-danger" *ngIf="projectForm.get('status')?.hasError('required')">
+			This field is required.
+		</small>
 	</div>
 	<div class="row">
 		<div class="mb-3 col-6">
-			<label for="create-date" class="form-label">Create Date*</label>
+			<label for="create-date" class="form-label">Create Date</label>
 			<input type="text" class="form-control" id="create-date" aria-describedby="create" formControlName="created" required>
 		</div>
 		<div class="mb-3 col-6">
-			<label for="modified-date" class="form-label">Modified Date*</label>
+			<label for="modified-date" class="form-label">Modified Date</label>
 			<input type="text" class="form-control" id="modified-date" aria-describedby="modified" formControlName="modified" required>
 		</div>
 	</div>

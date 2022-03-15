@@ -11,23 +11,25 @@ export class DataService {
   constructor() { }
 
   getProjects() : PROJECT[] {
-    return this.data;
+    return this.sortData(this.data);
   }
 
   createProject(proj: PROJECT): PROJECT[] {
-    this.data.push(proj);
-    window.alert('project deleted');
-    return this.data;
+    console.log('create', proj);
+    proj.created = new Date().toLocaleDateString();
+    this.data.unshift(proj);
+    window.alert('project created');
+    return this.sortData(this.data);
   }
 
   updateProject(oldProj: PROJECT, newProj: PROJECT): PROJECT[] {
-    console.log('update', oldProj, newProj);
-    // TODO: update and return
-    let index = this.data.findIndex((each: any) => each.title == oldProj.title && each.created == oldProj.created);
+    console.log('update', newProj);
+    let index = this.data.findIndex((each: any) => each == oldProj);
     this.data.splice(index, 1);
-    this.data.push(newProj);
+    newProj.modified = new Date().toLocaleDateString();
+    this.data.unshift(newProj);
     window.alert('project updated');
-    return this.data;
+    return this.sortData(this.data);
   }
 
   deleteProject(deleteProj: PROJECT): PROJECT[] {
@@ -35,12 +37,16 @@ export class DataService {
     let index = this.data.findIndex((each: any) => each.title == deleteProj.title && each.created == deleteProj.created);
     this.data.splice(index, 1);
     window.alert('project deleted');
-    return this.data;
+    return this.sortData(this.data);
+  }
+
+  sortData(projects: PROJECT[]): PROJECT[] {
+    return projects.sort((a: PROJECT, b: PROJECT) => a.title > b.title ? 1 : -1)
   }
 }
 
 export interface PROJECT {
-  title?: string,
+  title: string,
   division?: string,
   project_owner?: string,
   budget: number,

@@ -4,7 +4,12 @@
   <button type="button" class="btn-close" aria-label="Close" (click)="modalService.dismiss('Cross click')"></button>
 </div>
 <div class="modal-body row">
-  <app-search class="col-6" [projectData]="dataCopy" (onProjectUpdate)="newProjectData($event)"></app-search>
+  <app-search class="col-6"
+    [projectData]="dataCopy"
+    [allProjectData]="allProjects"
+    (onProjectUpdate)="newProjectData($event)"
+    (onValidUpdate)="updateValidity($event)">
+  </app-search>
     <div class="col d-flex flex-column justify-content-center">
       <div class="d-flex justify-content-center mb-4">Budget Summary</div>
       <div class="row d-flex justify-content-center align-items-center">
@@ -20,7 +25,7 @@
   
 </div>
 <div class="modal-footer d-flex justify-content-between">
-  <button type="submit" class="btn btn-danger me-auto" (click)="modalService.dismiss('Delete')">Delete</button>
+  <button type="submit" class="btn btn-danger me-auto" (click)="deleteStep()">{{deleteMessage}}</button>
   <button type="submit" class="btn btn-outline-primary mx-3" (click)="modalService.dismiss('Cancel')">Cancel</button>
-  <button type="button" class="btn btn-primary" (click)="modalService.dismiss(newProject)" [disabled]="dataCopy.status === 'archived'">Save</button>
+  <button type="button" class="btn btn-primary" (click)="modalService.dismiss(newProject)" [disabled]="!validity">Save</button>
 </div>

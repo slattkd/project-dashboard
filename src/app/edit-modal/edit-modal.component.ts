@@ -14,6 +14,8 @@ export class EditModalComponent implements OnInit {
   averageBudget: number = 0;
   difference: number = 0;
   newProject: PROJECT;
+  validity: boolean = false;
+  deleteMessage = 'Delete';
 
   constructor(
     public modalService: NgbActiveModal,
@@ -37,5 +39,18 @@ export class EditModalComponent implements OnInit {
     this.newProject = proj;
   }
   
+  updateValidity(val: boolean) {
+    let archived = this.dataCopy.status === 'archived'
+    console.log('validity', val);
+    this.validity = val && !archived;
+  }
+
+  deleteStep(): void {
+    if (this.deleteMessage === 'Delete') {
+      this.deleteMessage = 'Are you sure?';
+      return;
+    }
+    this.modalService.dismiss('Delete')
+  }
 
 }

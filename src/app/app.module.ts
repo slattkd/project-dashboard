@@ -23,7 +23,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
     ProjectCardComponent,
     DatePickerComponent,
     EditModalComponent,
-    ProjectDetailsComponent,
+    ProjectDetailsComponent
   ],
   imports: [
     BrowserModule,
