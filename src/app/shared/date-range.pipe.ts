@@ -1,7 +1,7 @@
 import { newArray } from '@angular/compiler/src/util';
 import { Pipe, PipeTransform } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { PROJECT } from '../data.service';
+import { Project } from '../models/project';
 
 @Pipe({
   name: 'dateRange'
@@ -11,7 +11,7 @@ export class DateRangePipe implements PipeTransform {
   constructor() {
   }
 
-  transform(arr: PROJECT[], createDate: NgbDateStruct, endDate: NgbDateStruct): PROJECT[] {
+  transform(arr: Project[], createDate: NgbDateStruct, endDate: NgbDateStruct): Project[] {
     // mm/dd/yyy
     if (createDate && endDate) {
       return arr.filter(each => this.after(this.convertDate(each.created), createDate) && this.before(this.convertDate(each.created), endDate));

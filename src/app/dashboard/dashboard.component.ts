@@ -2,10 +2,15 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgbDateStruct, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
-import { DataService, PROJECT } from '../data.service';
+import { Subject, Observable } from 'rxjs';
+import { DataService} from '../data.service';
 import { EditModalComponent } from '../edit-modal/edit-modal.component';
 import { ProjectCardComponent } from '../project-card/project-card.component';
+import { Project } from '../models/project';
+import { select, Store } from '@ngrx/store';
+import { selectProjects } from '../project/store/selector/project.selectors';
+import { ProjectState } from '../project/store/reducer/project.reducer';  
+import { initProjects, addProject } from '../project.actions';
 
 
 @Component({
@@ -15,23 +20,27 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
 })
 export class DashboardComponent implements OnInit {
 
-  data: PROJECT[] | [];
+  data: Project[] | Project[] | [];
   loading: boolean = false;
   searchTerm: string = '';
-  selectedProject: PROJECT | null;
+  selectedProject: Project | null;
   endDate: any;
   startDate: any;
   onClear:Subject<any> = new Subject();
+  projects$: Observable<Project[]>;
 
   constructor(
     private dataService: DataService,
-    private modalService: NgbModal
-    ) { }
+    private modalService: NgbModal,
+    private store: Store<ProjectState>
+    ) {
+      this.projects$ = this.store.pipe(select(selectProjects));
+     }
 
   ngOnInit(): void {
     this.data = this.dataService.getProjects();
+    this.store.dispatch(initProjects(this.data));
   }
-
   updateStartDate(e: any) {
     this.startDate = e;
   }
@@ -40,7 +49,7 @@ export class DashboardComponent implements OnInit {
     this.endDate = e;
   }
 
-  editProject(proj: PROJECT) {
+  editProject(proj: Project) {
     console.log("edit", proj);
   }
 
@@ -51,7 +60,7 @@ export class DashboardComponent implements OnInit {
     this.searchTerm = '';
   }
 
-  open(content: PROJECT) {
+  open(content: Project) {
     this.selectedProject = content;
     const modal = this.modalService.open(EditModalComponent, {size: 'lg'});
     modal.componentInstance.projectData = content;

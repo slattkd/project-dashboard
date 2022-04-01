@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { PROJECT } from '../data.service';
 
 @Pipe({
   name: 'filterPipe'

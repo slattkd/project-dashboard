@@ -41,3 +41,10 @@
 	
 
 </div>
+
+<div class="flex">
+	<h4>List of Customers</h4>
+	<div *ngFor="let project of projects$ | async; let i=index">
+		<span >{{i+1}}.</span> {{project | json}}
+	</div>
+</div>

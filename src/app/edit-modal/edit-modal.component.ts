@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DataService, PROJECT } from '../data.service';
+import { DataService } from '../data.service';
+import { Project } from '../models/project';
 
 @Component({
   selector: 'app-edit-modal',
@@ -8,12 +9,12 @@ import { DataService, PROJECT } from '../data.service';
   styleUrls: ['./edit-modal.component.scss']
 })
 export class EditModalComponent implements OnInit {
-  @Input() projectData: PROJECT;
-  dataCopy: PROJECT;
-  allProjects?: PROJECT[];
+  @Input() projectData: Project;
+  dataCopy: Project;
+  allProjects?: Project[];
   averageBudget: number = 0;
   difference: number = 0;
-  newProject: PROJECT;
+  newProject: Project;
   validity: boolean = false;
   deleteMessage = 'Delete';
 
@@ -35,7 +36,7 @@ export class EditModalComponent implements OnInit {
     }
   }
 
-  newProjectData(proj: PROJECT) {
+  newProjectData(proj: Project) {
     this.newProject = proj;
   }
   

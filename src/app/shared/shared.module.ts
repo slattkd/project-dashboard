@@ -3,10 +3,14 @@ import { CommonModule} from '@angular/common';
 import { FilterPipe } from './filter.pipe';
 import { DateRangePipe } from './date-range.pipe';
 
+import { StoreModule, MetaReducer } from '@ngrx/store';
+import { Project } from '../models/project';
+
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    StoreModule.forRoot( {  })
   ],
   declarations: [
     FilterPipe,

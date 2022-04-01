@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Form, FormGroup, FormControl, ReactiveFormsModule, RequiredValidator, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { PROJECT } from '../data.service';
+import { Project } from '../models/project';
 
 @Component({
   selector: 'app-search',
@@ -9,9 +9,9 @@ import { PROJECT } from '../data.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  @Input() projectData: PROJECT;
-  @Input() allProjectData: PROJECT[] | undefined;
-  @Output() onProjectUpdate = new EventEmitter<PROJECT>();
+  @Input() projectData: Project;
+  @Input() allProjectData: Project[] | undefined;
+  @Output() onProjectUpdate = new EventEmitter<Project>();
   @Output() onValidUpdate = new EventEmitter<boolean>();
 
   projectForm = new FormGroup({
@@ -53,7 +53,7 @@ export class SearchComponent implements OnInit {
     console.log('submit', this.projectForm.value);
   }
 
-  public projectUpdate(proj: PROJECT): void {
+  public projectUpdate(proj: Project): void {
     this.onProjectUpdate.emit(proj);
     this.onValidUpdate.emit(this.projectForm.valid);
   }
